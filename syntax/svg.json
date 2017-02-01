@@ -1,0 +1,199 @@
+{
+    "elements": {
+        "a":{
+            "documentation": "The <a> SVG element defines a hyperlink.",
+            "subElements":[
+                "@Animation_elements",
+                "@Descriptive_elements",
+                "@Shape_elements",
+                "@Structural_elements",
+                "@Gradient_elements",
+                "a", "altGlyphDef", "clipPath", "color-profile", "cursor", "filter", "font", "font-face", "foreignObject", "image", "marker", "mask", "pattern", "script", "style", "switch", "text", "view"
+            ]
+        },
+        "altGlyph":{
+            "deprecated": "This feature has been removed from the Web standards."
+        },
+        "altGlyphDef":{
+            "deprecated": "This feature has been removed from the Web standards."
+        },
+        "altGlyphItem":{
+            "deprecated": "This feature has been removed from the Web standards."
+        },
+        "animate":{
+            "subElements": [
+                "@Descriptive_elements"
+            ]
+        },
+        "animateColor":{},
+        "animateMotion":{},
+        "animateTransform":{},
+        "audio":{},
+        "canvas":{},
+        "circle":{},
+        "clipPath":{},
+        "color-profile":{},
+        "cursor":{},
+        "defs":{},
+        "desc":{},
+        "discard":{},
+        "ellipse":{},
+        "feBlend":{},
+        "feColorMatrix":{},
+        "feComponentTransfer":{},
+        "feComposite":{},
+        "feConvolveMatrix":{},
+        "feDiffuseLighting":{},
+        "feDisplacementMap":{},
+        "feDistantLight":{},
+        "feDropShadow":{},
+        "feFlood":{},
+        "feFuncA":{},
+        "feFuncB":{},
+        "feFuncG":{},
+        "feFuncR":{},
+        "feGaussianBlur":{},
+        "feImage":{},
+        "feMerge":{},
+        "feMergeNode":{},
+        "feMorphology":{},
+        "feOffset":{},
+        "fePointLight":{},
+        "feSpecularLighting":{},
+        "feSpotLight":{},
+        "feTile":{},
+        "feTurbulence":{},
+        "filter":{},
+        "font":{},
+        "font-face":{},
+        "font-face-format":{},
+        "font-face-name":{},
+        "font-face-src":{},
+        "font-face-uri":{},
+        "foreignObject":{},
+        "g":{},
+        "glyph":{},
+        "glyphRef":{},
+        "hatch":{},
+        "hatchpath":{},
+        "hkern":{},
+        "iframe":{},
+        "image":{},
+        "line":{},
+        "linearGradient":{},
+        "marker":{},
+        "mask":{},
+        "mesh":{},
+        "meshgradient":{},
+        "meshpatch":{},
+        "meshrow":{},
+        "metadata":{},
+        "missing-glyph":{},
+        "mpath":{},
+        "path":{},
+        "pattern":{},
+        "polygon":{},
+        "polyline":{},
+        "radialGradient":{},
+        "rect":{},
+        "script":{},
+        "set":{},
+        "solidcolor":{},
+        "stop":{},
+        "style":{},
+        "svg":{
+            "documentation" : "The svg element can be used to embed an SVG fragment inside the current document (for example, an HTML document). This SVG fragment has its own viewport and coordinate system."
+        },
+        "switch":{},
+        "symbol":{},
+        "text":{},
+        "textPath":{},
+        "title":{},
+        "tref":{},
+        "tspan":{},
+        "unknown":{},
+        "use":{},
+        "video":{},
+        "view":{},
+        "vkern":{}
+    },
+    "categories": {
+        "Animation_elements":[
+            "animate",
+            "animateColor",
+            "animateMotion",
+            "animateTransform",
+            "discard",
+            "mpath",
+            "set"
+        ],
+        "Basic_shapes":[
+            "circle",
+            "ellipse",
+            "line",
+            "polygon",
+            "polyline",
+            "rect"
+        ],
+        "Container_elements":[
+            "a", 
+            "defs", 
+            "g", 
+            "marker",
+            "mask", 
+            "missing-glyph",
+            "pattern",
+            "svg",
+            "switch",
+            "symbol",
+            "unknown"
+        ],
+        "Descriptive_elements":[
+            "desc",
+            "metadata",
+            "title"
+        ],
+        "Filter_primitive_elements":[
+            "feBlend", "feColorMatrix", "feComponentTransfer", "feComposite", "feConvolveMatrix", "feDiffuseLighting", "feDisplacementMap", "feDropShadow", "feFlood","feFuncA", "feFuncB", "feFuncG", "feFuncR","feGaussianBlur", "feImage", "feMerge", "feMergeNode", "feMorphology", "feOffset", "feSpecularLighting", "feTile", "feTurbulence"
+        ],
+        "Font_elements":[
+            "font", "font-face", "font-face-format", "font-face-name", "font-face-src", "font-face-uri", "hkern", "vkern"
+        ],
+        "Gradient_elements":[
+            "linearGradient", "meshgradient", "radialGradient", "stop"
+        ],
+        "Graphics_elements":[
+            "audio", "iframe", "image", "mesh", "use", "video"
+        ],
+        "HTML_elements":[
+            "audio", "canvas", "iframe", "video"
+        ],
+        "Light_source_elements":[
+            "feDistantLight", "fePointLight", "feSpotLight"
+        ],
+        "Never-rendered_elements":[
+            "clipPath", "defs", "hatch", "linearGradient", "marker", "mask", "meshgradient", "metadata", "pattern", "radialGradient", "script", "style", "symbol", "title"
+        ],
+        "Paint_server_elements":[
+            "hatch", "linearGradient", "meshgradient", "pattern", "radialGradient", "solidcolor"
+        ],
+        "Renderable_elements":[
+            "a", "audio", "canvas", "circle", "ellipse", "foreignObject", "g", "iframe", "image", "line", "mesh", "path", "polygon", "polyline", "rect", "svg", "switch", "symbol", "text", "textPath", "tspan", "unknown", "use", "video"
+        ],
+        "Shape_elements":[
+            "circle", "ellipse", "line", "mesh", "path", "polygon", "polyline", "rect"
+        ],
+        "Structural_elements":[
+            "defs", "g", "svg", "symbol", "use"
+        ],
+        "Text_content_elements":[
+            "altGlyph", "altGlyphDef", "altGlyphItem", "glyph", "glyphRef", "textPath", "text", "tref", "tspan"
+        ],
+        "Text_content_child_elements":[
+            "altGlyph", "textPath", "tref", "tspan"
+        ],
+        "Uncategorized_elements":[
+            "clipPath", "color-profile", "cursor", "filter", "foreignObject", "hatchpath", "meshpatch", "meshrow", "script", "style", "view"
+        ]
+    }
+}
