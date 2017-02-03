@@ -2,10 +2,16 @@
     "name": "svg",
     "displayName": "SVG",
     "description": "%description%",
-    "version": "0.0.1",
+    "version": "0.0.2",
     "publisher": "jock",
     "engines": {
         "vscode": "^1.5.0"
+    },
+    "icon": "images/svglogo.png",
+    "preview": true,
+    "galleryBanner": {
+        "color": "#FFB13B",
+        "theme":"light"
     },
     "categories": [
         "Languages",
@@ -13,6 +19,7 @@
         "Other"
     ],
     "activationEvents": [
+        "onCommand:_svg.showSvg",
         "onLanguage:svg",
         "onLanguage:xml"
     ],

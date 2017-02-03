@@ -4,72 +4,63 @@ import * as fs from 'fs';
 
 import * as utils from './features/utils';
 
-vscode.EventEmitter
-
-interface UriMapping {
-    srcUri: vscode.Uri;
-    previewUri: vscode.Uri;
-}
-
 export class SvgPreviwerContentProvider implements vscode.TextDocumentContentProvider, vscode.Disposable
 {
+
+    static lastActiveDocument: vscode.TextDocument;
+
     _didChangeEventEmitter = new vscode.EventEmitter<vscode.Uri>();
 
     onDidChange: vscode.Event<vscode.Uri>;
-
-    uriMappings: UriMapping[] = [];
     
     constructor() {
         this.onDidChange = this._didChangeEventEmitter.event;
 
-        let self = this;
         vscode.workspace.onDidChangeTextDocument(e=>{
-            let uriMapping = self.uriMappings.find(m=>e.document.uri.scheme == 'file' && m.srcUri.fsPath == e.document.fileName);
-            if(uriMapping) {
-                self._didChangeEventEmitter.fire(uriMapping.previewUri);
+            if(e.document == SvgPreviwerContentProvider.lastActiveDocument) {
+                this._didChangeEventEmitter.fire(vscode.Uri.parse('svg-preview:/jock/svg'));
             }
         });
-        vscode.workspace.onDidCloseTextDocument(document=>{
-            let uriMapping = self.uriMappings.find(m=>document.uri.scheme == 'file' && m.srcUri.fsPath == document.fileName);
-            if(uriMapping) {
-                utils.removeItem(self.uriMappings, uriMapping);
-            }
-        })
+
+        vscode.window.onDidChangeActiveTextEditor(e=>{
+            this._didChangeEventEmitter.fire(vscode.Uri.parse('svg-preview:/jock/svg'));
+        });
+
+        let self = this;
     }
 
-    createFileDidChangeWatch(srcUri: vscode.Uri, previewUri: vscode.Uri) : PromiseLike<vscode.TextDocument> {
-        let doc = vscode.workspace.textDocuments.find(d=>d.uri.scheme == "file" && d.uri.fsPath == srcUri.fsPath);
-        let uriMapping = this.uriMappings.find(m=>m.srcUri.fsPath == srcUri.fsPath);
-        if(!uriMapping) {
-            let self = this;
-            if(doc) {
-                let uriMapping = {
-                    srcUri: srcUri, 
-                    previewUri: previewUri
-                };
-                self.uriMappings.push(uriMapping);
-                return Promise.resolve(doc);
-            }
-
-            return vscode.workspace.openTextDocument(srcUri).then(doc=>{
-                let uriMapping = {
-                    srcUri: srcUri, 
-                    previewUri: previewUri
-                };
-                self.uriMappings.push(uriMapping);
-                return doc;
-            })
-        } else if(doc) {
-            return Promise.resolve(doc);
-        }
-        return Promise.reject("FILE NO FIND");
+    isSvgDocument(document:vscode.TextDocument): boolean {
+        return /\.svg$/i.test(document.uri.path);
     }
 
     provideTextDocumentContent(uri: vscode.Uri, token: vscode.CancellationToken): Thenable<string> {
-        let srcUri = vscode.Uri.file(uri.query);
-        return this.createFileDidChangeWatch(srcUri, uri).then(doc=>{
-            return doc.getText();
-        });
+        let activeTextEditor = vscode.window.activeTextEditor;
+        if(activeTextEditor) {
+            if(this.isSvgDocument(activeTextEditor.document)) {
+                SvgPreviwerContentProvider.lastActiveDocument = activeTextEditor.document;
+                return this.getLastContent();
+            } 
+            return this.getLastContent();
+        } 
+        return this.getLastContent();
+    }
+
+    getLastContent(): Thenable<string> {
+        if(this.isSvgDocument(SvgPreviwerContentProvider.lastActiveDocument)) {
+            return Promise.resolve(SvgPreviwerContentProvider.lastActiveDocument.getText());
+        }
+        return this.getReportHtml('Switch to or open a ".svg" file will show preview.');
+    }
+
+    getReportHtml(body): Thenable<string> {
+        return Promise.resolve(`<html>
+<head>
+<title>No Content</title>
+</head>
+<body>
+<p style="color:#900">${body}</p>
+</body>
+</html>`);
     }
 
     dispose(){

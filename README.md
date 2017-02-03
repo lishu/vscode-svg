@@ -26,9 +26,16 @@ SVG Preview
 
 Configuration option functionality is not yet implemented.
 
+## Update History
+
+### 0.0.2
+
+* Improve Preview.
+* Improve Id Symbol show `[tag]#[id]` and fix a bug.
+
 ### 0.0.1
 
-Initial release of ...
+* Initial release.
 
 -----------------------------------------------------------------------------------------------------------
 ## For more information
