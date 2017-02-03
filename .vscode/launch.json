@@ -3,14 +3,17 @@
     "version": "0.1.0",
     "configurations": [
         {
-            "name": "Launch Extension",
             "type": "extensionHost",
             "request": "launch",
+            "name": "启动扩展",
             "runtimeExecutable": "${execPath}",
-            "args": ["--extensionDevelopmentPath=${workspaceRoot}" ],
-            "stopOnEntry": false,
+            "args": [
+                "--extensionDevelopmentPath=${workspaceRoot}"
+            ],
             "sourceMaps": true,
-            "outFiles": [ "${workspaceRoot}/out/src/**/*.js" ],
+            "outFiles": [
+                "${workspaceRoot}/out/**/*.js"
+            ],
             "preLaunchTask": "npm"
         },
         {
