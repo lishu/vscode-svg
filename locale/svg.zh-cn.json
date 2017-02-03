@@ -1,0 +1,12 @@
+{
+    "elements": {
+        "a": {
+            "documentation": "定义一个超链接。"
+        }
+    },
+    "attributes": {
+        "href": {
+            "documentation": "定义链接的资源地址（URL）。"
+        }
+    }
+}

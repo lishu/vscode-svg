@@ -12,7 +12,7 @@ SVG Attributes Auto Completion.
 
 ![feature 2](images/f2.png)
 
-SVG Hint
+Document Symbol with SVG Element [id].
 
 ![feature 3](images/f3.png)
 
@@ -34,6 +34,5 @@ Initial release of ...
 ## For more information
 
 * [MDN SVG Reference](https://developer.mozilla.org/en-US/docs/Web/SVG)
-* [Github](https://github.com/lishu/vscode-svg)
 
 **Enjoy!**

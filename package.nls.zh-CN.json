@@ -1,0 +1,10 @@
+{
+    "description": "SVG 语言支持",
+    "svg.showSvg.title": "预览 SVG",
+    "configuration.completion.showAdvanced.title": "在完成列表中显示高级选项。",
+    "configuration.completion.showAdvanced.description": "指定是否在完成列表中显示不常用的高级选项。",
+    "configuration.completion.showDeprecated.title": "显示已弃用选项。",
+    "configuration.completion.showDeprecated.description": "指定是否在完成列表中显示已弃用的选项。",
+    "configuration.version.title": "SVG 版本",
+    "configuration.version.description": "指定 SVG 标准版本，将用于自动完成与校验。"
+}

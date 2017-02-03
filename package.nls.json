@@ -1,0 +1,10 @@
+{
+    "description": "SVG Language Support",
+    "svg.showSvg.title": "Preview SVG",
+    "configuration.completion.showAdvanced.title": "Show advanced items in completion list.",
+    "configuration.completion.showAdvanced.description": "Specifies whether advanced items that are not commonly used are displayed in the AutoComplete list.",
+    "configuration.completion.showDeprecated.title": "Show deprecated items in completion list.",
+    "configuration.completion.showDeprecated.description": "Specifies whether advanced items that are deprecated are displayed in the AutoComplete list.",
+    "configuration.version.title": "SVG Version",
+    "configuration.version.description": "Specifies the SVG standard version that will be used for autocompletion and validation."
+}

@@ -1,12 +1,55 @@
 import * as utils from './utils';
+import * as vscode from 'vscode';
+import * as fs from 'fs';
+import * as path from 'path';
 
-type SvgJsonAttributeType = "number" | "number-optional-number" | "clock-value" | "coordinate" | "length" | "URL" | "integer" | "list-of-points" | "style" | "paint";
+type SvgJsonAttributeType = string;
 
 type SvgElementCategories = "Animation_elements" | "Basic_shapes" | "Container_elements" | "Descriptive_elements" | "Filter_primitive_elements" | "Font_elements" | "Gradient_elements" | "Graphics_elements" | "HTML_elements" | "Light_source_elements" | "Never-rendered_elements" | "Paint_server_elements" | "Renderable_elements" | "Shape_elements" | "Structural_elements" | "Text_content_elements" | "Text_content_child_elements" | "Uncategorized_elements";
 
 type SvgAttributeCategories = "Animation_event_attributes" | "Animation_attribute_target_attributes" | "Animation_timing_attributes" | "Animation_value_attributes" | "Animation_addition_attributes" | "Conditional_processing_attributes" | "Core_attributes" | "Document_event_attributes" | "Filter_primitive_attributes" | "Graphical_event_attributes" | "Presentation_attributes" | "Style_attributes" | "Transfer_function_attributes" | "XLink_attributes";
 
 type SvgEnum = string | {name:string, documentation:string} ;
+
+export enum ColorKeywords {
+    aliceblue,
+    antiquewhite,
+    aqua,
+    aquamarine,
+    azure,
+    beige,
+    bisque,
+    black,
+    blanchedalmond,
+    blue,
+    blueviolet,
+    brown,
+    burlywood,
+    cadetblue,
+    chartreuse,
+    chocolate,
+    coral,
+    cornflowerblue,
+    cornsilk,
+    crimson,
+    cyan,
+    darkblue,
+    darkcyan,
+    darkgoldenrod,
+    darkgray,
+    darkgreen,
+    darkgrey,
+    darkkhaki,
+    darkmagenta,
+    darkolivegreen,
+    darkorange,
+    darkorchid,
+    darkred,
+    darksalmon,
+    darkseagreen,
+    darkslateblue,
+    darkslategray
+}
 
 export interface ISvgJsonAttribute {
     /** 属性名称 */
@@ -26,6 +69,9 @@ export interface ISvgJsonAttribute {
 
     /** 可选多项值 */
     enums?:SvgEnum[];
+
+    /** 是否为不常用的高级选项 */
+    advanced?:boolean;
 }
 
 export interface ISvgJsonAttributes {
@@ -47,6 +93,8 @@ export interface ISvgJsonElement {
     inline?: boolean;
     /** 简单元素，如 `<br/>` */
     simple?: boolean;
+    /** 是否为不常用的高级选项 */
+    advanced?:boolean;
 }
 
 export interface ISvgJsonCategories {
@@ -696,7 +744,7 @@ export function getSvgJson(): ISvgJson {
                 documentation: "The <filter> SVG element serves as container for atomic filter operations.",
                 subElements: [
                     "@Descriptive_elements",
-                    "@Filter_primitive_attributes",
+                    "@Filter_primitive_elements",
                     "animate", "set"
                 ],
                 attributes: [
@@ -1624,7 +1672,8 @@ export function getSvgJson(): ISvgJson {
             "baseline-shift": {
                 name: "baseline-shift",
                 documentation: "The baseline-shift attribute allows repositioning of the dominant-baseline relative to the dominant-baseline of the parent text content element. The shifted object might be a sub- or superscript.",
-                enum: "auto | baseline | super | sub | <percentage> | <length> | inherit".split(' | ')
+                enum: "auto | baseline | super | sub | inherit".split(' | '),
+                type: "percentage | length"
             },
             "begin": {
                 name: "begin",
@@ -1647,7 +1696,8 @@ export function getSvgJson(): ISvgJson {
             "clip": {
                 name: "clip",
                 documentation: "The clip attribute has the same parameter values as defined for the css clip property. Unitless values, which indicate current user coordinates, are permitted on the coordinate values on the <shape>. The value of auto defines a clipping path along the bounds of the viewport created by the given element.",
-                enum: "auto | <shape> | inherit".split(' | ')
+                enum: "auto | inherit".split(' | '),
+                type: "shape"
             },
             "clipPathUnits": {
                 name: "clipPathUnits",
@@ -1657,7 +1707,8 @@ export function getSvgJson(): ISvgJson {
             "clip-path": {
                 name: "clip-path",
                 documentation: "The clip-path attribute binds the element it is applied to with a given <clipPath> element",
-                enum: "<FuncIRI> | none | inherit".split(' | ')
+                enum: "none | inherit".split(' | '),
+                type: "FuncIRI"
             },
             "clip-rule": {
                 name: "clip-rule",
@@ -1667,7 +1718,8 @@ export function getSvgJson(): ISvgJson {
             "color": {
                 name: "color",
                 documentation: "The color attribute is used to provide a potential indirect value (currentColor) for the fill, stroke, stop-color, flood-color and lighting-color attributes.",
-                enum: "<color> | inherit".split(' | ')
+                enum: "inherit".split(' | '),
+                type: "color"
             },
             "color-interpolation": {
                 name: "color-interpolation",
@@ -1682,7 +1734,8 @@ export function getSvgJson(): ISvgJson {
             "color-profile": {
                 name: "color-profile",
                 documentation: "The color-profile attribute is used to define which color profile a raster image included through the <image> element should use.",
-                enum: "auto | sRGB | <name> | <IRI> | inherit".split(' | ')
+                enum: "auto | sRGB | inherit".split(' | '),
+                type: "name | IRI"
             },
             "color-rendering": {
                 name: "color-rendering",
@@ -1744,17 +1797,18 @@ export function getSvgJson(): ISvgJson {
             "dur": {
                 name: "dur",
                 documentation: "This attribute indicates the simple duration of the animation.",
-                enum: "<clock-value> | indefinite".split(' | ')
+                enum: "indefinite".split(' | '),
+                type: "clock-value"
             },
             "dx": {
                 name: "dx",
                 documentation: "The dx attribute indicates a shift along the x-axis on the position of an element or its content. What exactly is shifted depends on the element for which this attribute is set.",
-                enum: '<number> | <list-of-length>'.split(' | ')
+                type: 'number | list-of-length'
             },
             "dy": {
                 name: "dy",
                 documentation: "The dy attribute indicates a shift along the y-axis on the position of an element or its content. What exactly is shifted depends on the element for which this attribute is set.",
-                enum: '<number> | <list-of-length>'.split(' | ')
+                type: 'number | list-of-length'
             },
             "edgeMode": {
                 name: "edgeMode",
@@ -1783,7 +1837,8 @@ export function getSvgJson(): ISvgJson {
             "fill-opacity": {
                 name: "fill-opacity",
                 documentation: "This attribute specifies the opacity of the color or the content the current object is filled with.",
-                enum: "<opacity-value> | inherit".split(' | ')
+                enum: "inherit".split(' | '),
+                type: "opacity-value"
             },
             "fill-rule": {
                 name: "fill-rule",
@@ -1793,7 +1848,8 @@ export function getSvgJson(): ISvgJson {
             "filter": {
                 name: "filter",
                 documentation: "The filter attribute defines the filter effects define by the <filter> element that shall be applied to its element.",
-                enum: "<funciri> | none | inherit".split(" | ")
+                enum: "none | inherit".split(" | "),
+                type: "FuncIRI"
             },
             "filterRes": {
                 name: "filterRes",
@@ -1808,12 +1864,14 @@ export function getSvgJson(): ISvgJson {
             "flood-color": {
                 name: "flood-color",
                 documentation: "The flood-color attribute indicates what color to use to flood the current filter primitive subregion defined through the <feflood> element. The keyword currentColor and ICC colors can be specified in the same manner as within a <paint> specification for the fill and stroke attributes.",
-                enum: "currentColor | <color> | <icccolor> | inherit".split(' | ')
+                enum: "currentColor | inherit".split(' | '),
+                type: "color | icccolor"
             },
             "flood-opacity": {
                 name: "flood-opacity",
                 documentation: "The flood-opacity attribute indicates the opacity value to use across the current filter primitive subregion defined through the <feflood> element.",
-                enum: "<opacity-value> | inherit".split(' | ')
+                enum: "inherit".split(' | '),
+                type: "opacity-value"
             },
             "font-family": {
                 name: "font-family",
@@ -1823,17 +1881,19 @@ export function getSvgJson(): ISvgJson {
             "font-size": {
                 name: "font-size",
                 documentation: "The font-size attribute refers to the size of the font from baseline to baseline when multiple lines of text are set solid in a multiline layout environment. For SVG, if a <length> is provided without a unit identifier (e.g., an unqualified number such as 128), the browser processes the <length> as a height value in the current user coordinate system.",
-                enum: "<absolute-size> | <relative-size> | <length> | <percentage> | inherit".split(' | ')
+                enum: "inherit".split(' | '),
+                type: "absolute-size | relative-size | length | percentage"
             },
             "font-size-adjust": {
                 name: "font-size-adjust",
                 documentation: "The font-size-adjust attribute allows authors to specify an aspect value for an element that will preserve the x-height of the first choice font in a substitute font.",
-                enum: "<number> | none | inherit".split(' | ')
+                enum: "none | inherit".split(' | '),
+                type: "number"
             },
             "font-stretch": {
                 name: "font-stretch",
                 documentation: "The font-stretch attribute indicates the desired amount of condensing or expansion in the glyphs used to render the text.",
-                enum: "	normal | wider | narrower | ultra-condensed | extra-condensed | condensed | semi-condensed | semi-expanded | expanded | extra-expanded | ultra-expanded | inherit".split(' | ')
+                enum: "normal | wider | narrower | ultra-condensed | extra-condensed | condensed | semi-condensed | semi-expanded | expanded | extra-expanded | ultra-expanded | inherit".split(' | ')
             },
             "font-style": {
                 name: "font-style",
@@ -1891,12 +1951,14 @@ export function getSvgJson(): ISvgJson {
             "in": {
                 name: "in",
                 documentation: "The in attribute identifies input for the given filter primitive.",
-                enum: "SourceGraphic | SourceAlpha | BackgroundImage | BackgroundAlpha | FillPaint | StrokePaint | <filter-primitive-reference>".split(' | ')
+                enum: "SourceGraphic | SourceAlpha | BackgroundImage | BackgroundAlpha | FillPaint | StrokePaint".split(' | '),
+                type: "filter-primitive-reference"
             },
             "in2": {
                 name: "in2",
                 documentation: "The in2 attribute identifies the second input for the given filter primitive. It works exactly like the in attribute.",
-                enum: "SourceGraphic | SourceAlpha | BackgroundImage | BackgroundAlpha | FillPaint | StrokePaint | <filter-primitive-reference>".split(' | ')
+                enum: "SourceGraphic | SourceAlpha | BackgroundImage | BackgroundAlpha | FillPaint | StrokePaint".split(' | '),
+                type: "filter-primitive-reference"
             },
             "k1": {
                 name: "k1",
@@ -1930,7 +1992,8 @@ export function getSvgJson(): ISvgJson {
             "kerning": {
                 name: "kerning",
                 documentation: "The kerning attribute indicates whether the browser should adjust inter-glyph spacing based on kerning tables that are included in the relevant font (i.e., enable auto-kerning) or instead disable auto-kerning and instead set inter-character spacing to a specific length (typically, zero).",
-                enum: "auto | <length> | inherit".split(' | ')
+                enum: "auto | inherit".split(' | '),
+                type: "length"
             },
             "keySplines": {
                 name: "keySplines",
@@ -1943,12 +2006,14 @@ export function getSvgJson(): ISvgJson {
             "letter-spacing": {
                 name: "letter-spacing",
                 documentation: "The letter-spacing attribute specifies spacing behavior between text characters supplemental to any spacing due to the kerning attribute.",
-                enum: "normal | <length> | inherit".split(' | ')
+                enum: "normal | inherit".split(' | '),
+                type: "length"
             },
             "lighting-color": {
                 name: "lighting-color",
                 documentation: "The lighting-color attribute defines the color of the light source for filter primitives elements <fediffuselighting> and <fespecularlighting>.",
-                enum: "currentColor | <color> | <icccolor> | inherit".split(' | ')
+                enum: "currentColor | inherit".split(' | '),
+                type: "color | icccolor"
             },
             "limitingConeAngle": {
                 name: "limitingConeAngle",
@@ -1962,17 +2027,20 @@ export function getSvgJson(): ISvgJson {
             "marker-end": {
                 name: "marker-end",
                 documentation: "The marker-end defines the arrowhead or polymarker that will be drawn at the final vertex of the given <path> element or basic shape. Note that for a <path> element which ends with a closed sub-path, the last vertex is the same as the initial vertex on the given sub-path. In this case, if marker-end does not equal none, then it is possible that two markers will be rendered on the given vertex. One way to prevent this is to set marker-end to none. (Note that the same comment applies to <polygon> elements.)",
-                enum: "none | <funciri> | inherit".split(' | ')
+                enum: "none | inherit".split(' | '),
+                type: "funciri"
             },
             "marker-mid": {
                 name: "marker-mid",
                 documentation: "The marker-mid defines the arrowhead or polymarker that shall be drawn at every vertex other than the first and last vertex of the given <path> element or basic shape.",
-                enum: "none | <funciri> | inherit".split(' | ')
+                enum: "none | inherit".split(' | '),
+                type: "funciri"
             },
             "marker-start": {
                 name: "marker-start",
                 documentation: "The marker-start attribute defines the arrowhead or polymarker that will be drawn at the first vertex of the given <path> element or basic shape.",
-                enum: "none | <funciri> | inherit".split(' | ')
+                enum: "none | inherit".split(' | '),
+                type: "funciri"
             },
             "markerHeight": {
                 name: "markerHeight",
@@ -1992,7 +2060,8 @@ export function getSvgJson(): ISvgJson {
             "mask": {
                 name: "mask",
                 documentation: "The mask attribute binds the element it is applied to with a given <mask> element.",
-                enum: "<FuncIRI> | none | inherit".split(' | ')
+                enum: "none | inherit".split(' | '),
+                type: "FuncIRI"
             },
             "maskContentUnits": {
                 name: "maskContentUnits",
@@ -2027,7 +2096,8 @@ export function getSvgJson(): ISvgJson {
             "opacity": {
                 name: "opacity",
                 documentation: "The opacity attribute specifies the transparency of an object or of a group of objects, that is, the degree to which the background behind the element is overlaid.",
-                enum: "<opacity-value> | inherit".split(" | ")
+                enum: "inherit".split(" | "),
+                type: "opacity-value"
             },
             "operator": {
                 name: "operator",
@@ -2133,12 +2203,14 @@ For the <radialgradient> element, this attribute defines the radius of the large
             "repeatCount": {
                 name: "repeatCount",
                 documentation: "This attribute indicates the number of time the animation will take place.",
-                enum: "<number> | indefinite".split(' | ')
+                enum: "indefinite".split(' | '),
+                type: "number"
             },
             "repeatDur": {
                 name: "repeatDur",
                 documentation: "This attribute specifies the total duration for repeat.",
-                enum: "<clock-value> | indefinite".split(' | ')
+                enum: "indefinite".split(' | '),
+                type: "clock-value"
             },
             "requiredFeatures": {
                 name: "requiredFeatures",
@@ -2201,12 +2273,14 @@ For the <radialgradient> element, this attribute defines the radius of the large
             "stop-color": {
                 name: "stop-color",
                 documentation: "The stop-color attribute indicates what color to use at that gradient stop. The keyword currentColor and ICC colors can be specified in the same manner as within a <paint> specification for the fill and stroke attributes.",
-                enum: "currentColor | <color> | <icccolor> | inherit".split(' | ')
+                enum: "currentColor | inherit".split(' | '),
+                type: "color | icccolor"
             },
             "stop-opacity": {
                 name: "stop-opacity",
                 documentation: "The stop-opacity attribute defines the opacity of a given gradient stop.",
-                enum: "<opacity-value> | inherit".split(' | ')
+                enum: "inherit".split(' | '),
+                type: "opacity-value"
             },
             "strikethrough-position": {
                 name: "strikethrough-position",
@@ -2226,12 +2300,14 @@ For the <radialgradient> element, this attribute defines the radius of the large
             "stroke-dasharray": {
                 name: "stroke-dasharray",
                 documentation: "the stroke-dasharray attribute controls the pattern of dashes and gaps used to stroke paths.",
-                enum: "none | <dasharray> | inherit".split(' | ')
+                enum: "none | inherit".split(' | '),
+                type: "dasharray"
             },
             "stroke-dashoffset": {
                 name: "stroke-dashoffset",
                 documentation: "the stroke-dashoffset attribute specifies the distance into the dash pattern to start the dash.",
-                enum: "<percentage> | <length> | inherit".split(' | ')
+                enum: "inherit".split(' | '),
+                type: "percentage | length"
             },
             "stroke-linecap": {
                 name: "stroke-linecap",
@@ -2246,17 +2322,20 @@ For the <radialgradient> element, this attribute defines the radius of the large
             "stroke-miterlimit": {
                 name: "stroke-miterlimit",
                 documentation: "When two line segments meet at a sharp angle and miter joins have been specified for stroke-linejoin, it is possible for the miter to extend far beyond the thickness of the line stroking the path. The stroke-miterlimit imposes a limit on the ratio of the miter length to the stroke-width. When the limit is exceeded, the join is converted from a miter to a bevel.",
-                enum: "<miterlimit> | inherit".split(' | ')
+                enum: "inherit".split(' | '),
+                type: "miterlimit"
             },
             "stroke-opacity": {
                 name: "stroke-opacity",
                 documentation: "the stroke-opacity attribute specifies the opacity of the outline on the current object. Its default value is 1.",
-                enum: "<opacity-value> | inherit".split(' | ')
+                enum: "inherit".split(' | '),
+                type: "opacity-value"
             },
             "stroke-width": {
                 name: "stroke-width",
                 documentation: "the stroke-width attribute specifies the width of the outline on the current object. Its default value is 1. If a <percentage> is used, the value represents a percentage of the current viewport. If a value of 0 is used the outline will never be drawn.",
-                enum: "<length> | <percentage> | inherit".split(' | ')
+                enum: "inherit".split(' | '),
+                type: "length | percentage"
             },
             "style": {
                 name: "style",
@@ -2342,7 +2421,8 @@ For the <radialgradient> element, this attribute defines the radius of the large
             "word-spacing": {
                 name: "word-spacing",
                 documentation: "The word-spacing attribute specifies spacing behavior between words.",
-                enum: "normal | <length> | inherit".split(' | ')
+                enum: "normal | inherit".split(' | '),
+                type: "length"
             },
             "writing-mode": {
                 name: "writing-mode",
@@ -2373,7 +2453,7 @@ For the <radialgradient> element, this attribute defines the radius of the large
                 name: "xlink:href",
                 documentation: "The xlink:href attribute defines a link to a resource as a reference <IRI>.",
                 deprecated: "Deprecated since SVG 2",
-                enum: "<IRI> | <funcIRI>".split(' | ')
+                type: "IRI | FuncIRI"
             },
             "xlink:show": {
                 name: "xlink:show",
@@ -2517,6 +2597,28 @@ For the <radialgradient> element, this attribute defines the radius of the large
                 utils.removeItem(ele.attributes, removeAttribute);
             }
         }
+    }
+
+    // 应用本地化语言
+    let language = vscode.env.language.toLowerCase();
+    let languageSVGFile = path.resolve(__dirname, '../../../locale', 'svg.' + language + '.json');
+    try{
+        let languageSVG = JSON.parse(fs.readFileSync(languageSVGFile, "utf8"));
+
+        function applyLangauge(input:{}, target:{}) {
+            for(var key in input) {
+                if(typeof input[key] == 'string' && typeof target[key] == 'string') {
+                    target[key] = input[key];
+                } else if(typeof input[key] == 'object' && typeof target[key] == 'object') {
+                    applyLangauge(input[key], target[key]);
+                }
+            }
+        }
+
+        applyLangauge(languageSVG, svg);
+
+    } catch (e){
+        // console.warn(e);
     }
 
     return svg;

@@ -1,7 +1,7 @@
 {
     "name": "svg",
-    "displayName": "svg",
-    "description": "SVG Language Support",
+    "displayName": "SVG",
+    "description": "%description%",
     "version": "0.0.1",
     "publisher": "jock",
     "engines": {
@@ -13,17 +13,84 @@
         "Other"
     ],
     "activationEvents": [
+        "onLanguage:svg",
         "onLanguage:xml"
     ],
     "main": "./out/src/extension",
+    "license": "MIT",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/lishu/vscode-svg.git"
+    },
     "contributes": {
         "commands": [{
-            "command": "extension.moveCursor",
+            "command": "_svg.moveCursor",
             "title": "Move Cursor"
         },{
-            "command": "extension.showSvg",
-            "title": "Show SVG"
-        }]
+            "command": "_svg.showSvg",
+            "title": "%svg.showSvg.title%",
+            "icon": {
+                "dark": "./images/Preview_inverse.svg",
+                "light": "./images/Preview.svg"
+            }
+        }],
+        "menus": {
+            "editor/title": [
+                {
+                    "command": "_svg.showSvg",
+					"when": "editorLangId == svg",
+					"group": "navigation"
+                }
+            ]
+        },
+        "languages": [
+            {
+                "id": "svg",
+                "extensions": [
+                    ".svg"
+                ],
+                "mimetypes": [
+                    "image/svg+xml"  
+                ],
+                "aliases": [
+                    "SVG", "svg"
+                ],
+                "configuration": "./svg.language-configuration.json"
+            }
+        ],
+        "grammars": [
+            {
+                "language": "svg",
+                "scopeName": "text.svg",
+                "path": "./syntaxes/svg.json"
+            }
+        ],
+        "configuration": {
+            "title": "SVG",
+            "properties": {
+                "svg.completion.showAdvanced": {
+                    "title": "%configuration.completion.showAdvanced.title%",
+                    "type": "boolean",
+                    "default": false,
+                    "description": "%configuration.completion.showAdvanced.description%"
+                },
+                "svg.completion.showDeprecated": {
+                    "title": "%configuration.completion.showDeprecated.title%",
+                    "type": "boolean",
+                    "default": false,
+                    "description": "%configuration.completion.showDeprecated.description%"
+                },
+                "svg.version": {
+                    "title": "%configuration.version.title%",
+                    "enum": [
+                        "1.1",
+                        "2.0"
+                    ],
+                    "description": "%configuration.version.description%",
+                    "default": "1.1"
+                }
+            }
+        }
     },
     "scripts": {
         "vscode:prepublish": "tsc -p ./",
