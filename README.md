@@ -1,6 +1,6 @@
 # svg
 
-A Powerful SVG Langauge Support Extension.
+A Powerful SVG Langauge Support Extension(beta).
 
 ## Features
 
@@ -24,7 +24,7 @@ SVG Preview
 
 ## Known Issues
 
-Manybe lost something
+Configuration option functionality is not yet implemented.
 
 ### 0.0.1
 
