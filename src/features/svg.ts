@@ -343,6 +343,10 @@ export function getSvgJson(): ISvgJson {
                     "rx",
                     "ry"
                 ],
+                defaultAttributes: {
+                    "rx": "100",
+                    "ry": "100"
+                },
                 simple: true
             },
             "feBlend": {
