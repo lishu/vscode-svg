@@ -1832,7 +1832,8 @@ export function getSvgJson(): ISvgJson {
             "fill": {
                 name: "fill",
                 documentation: "The fill attribute has two meanings based on the context it's used.",
-                enum: ["remove", "freeze"]
+                enum: ["remove", "freeze"],
+                type: "paint"
             },
             "fill-opacity": {
                 name: "fill-opacity",

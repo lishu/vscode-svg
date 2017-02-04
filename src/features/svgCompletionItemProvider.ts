@@ -8,7 +8,8 @@ import {
     CompletionItem, 
     CompletionList, 
     CompletionItemKind,
-    TextEdit
+    TextEdit,
+    workspace
 } from 'vscode';
 
 import * as fs from 'fs';
@@ -17,6 +18,8 @@ import {ISvgJson, ISvgJsonElement, ISvgJsonAttribute, ISvgJsonCategories, getSvg
 import * as utils from './utils';
 
 let svg: ISvgJson = null;
+
+let colors = 'aliceblue,antiquewhite,aqua,aquamarine,azure,beige,bisque,black,blanchedalmond,blue,blueviolet,brown,burlywood,cadetblue,chartreuse,chocolate,coral,cornflowerblue,cornsilk,crimson,cyan,darkblue,darkcyan,darkgoldenrod,darkgray,darkgreen,darkgrey,darkkhaki,darkmagenta,darkolivegreen,darkorange,darkorchid,darkred,darksalmon,darkseagreen,darkslateblue,darkslategray,darkslategrey,darkturquoise,darkviolet,deeppink,deepskyblue,dimgray,dimgrey,dodgerblue,firebrick,floralwhite,forestgreen,fuchsia,gainsboro,ghostwhite,gold,goldenrod,gray,grey,green,greenyellow,honeydew,hotpink,indianred,indigo,ivory,khaki,lavender,lavenderblush,lawngreen,lemonchiffon,lightblue,lightcoral,lightcyan,lightgoldenrodyellow,lightgray,lightgreen,lightgrey,lightpink,lightsalmon,lightseagreen,lightskyblue,lightslategray,lightslategrey,lightsteelblue,lightyellow,lime,limegreen,linen,magenta,maroon,mediumaquamarine,mediumblue,mediumorchid,mediumpurple,mediumseagreen,mediumslateblue,mediumspringgreen,mediumturquoise,mediumvioletred,midnightblue,mintcream,mistyrose,moccasin,navajowhite,navy,oldlace,olive,olivedrab,orange,orangered,orchid,palegoldenrod,palegreen,paleturquoise,palevioletred,papayawhip,peachpuff,peru,pink,plum,powderblue,purple,red,rosybrown,royalblue,saddlebrown,salmon,sandybrown,seagreen,seashell,sienna,silver,skyblue,slateblue,slategray,slategrey,snow,springgreen,steelblue,tan,teal,thistle,tomato,turquoise,violet,wheat,white,whitesmoke,yellow,yellowgreen'.split(',');
 
 export class SVGCompletionItemProvider implements CompletionItemProvider
 {
@@ -28,6 +31,17 @@ export class SVGCompletionItemProvider implements CompletionItemProvider
         if(svg == null){
             svg = getSvgJson();
         }
+        let self = this;
+        workspace.onDidChangeConfiguration(function(){
+            self.updateConfiguration();
+        });
+        this.updateConfiguration();
+    }
+
+    updateConfiguration() {        
+        let svgConf = workspace.getConfiguration('svg.completion');
+        this.showAdvanced = svgConf.get<boolean>("showAdvanced");
+        this.showDeprecated = svgConf.get<boolean>("showDeprecated");
     }
 
     /**
@@ -40,6 +54,9 @@ export class SVGCompletionItemProvider implements CompletionItemProvider
         let item = new CompletionItem(element, CompletionItemKind.Class);
         if(ele.deprecated){
             item.detail = 'DEPRECATED';
+            if(!this.showDeprecated){
+                return null;
+            }
         }
         if(ele.documentation){
             item.documentation = ele.documentation;
@@ -75,6 +92,9 @@ export class SVGCompletionItemProvider implements CompletionItemProvider
         if(svgAttr){
             if(svgAttr.deprecated){
                 item.detail = 'DEPRECATED';
+                if(!this.showDeprecated){
+                    return null;
+                }
             }
             if(svgAttr.documentation){
                 item.documentation = svgAttr.documentation;
@@ -87,6 +107,9 @@ export class SVGCompletionItemProvider implements CompletionItemProvider
             }
             if(svgAttr.type) {
                 item.detail = svgAttr.type;
+            }
+            if(/^(color|fill|stroke|paint)$/.test(svgAttr.type)) {
+                hasEnums = true;
             }
         }
         item.insertText = `${item.label}=""`;
@@ -102,19 +125,25 @@ export class SVGCompletionItemProvider implements CompletionItemProvider
     createEnumCompletionItems(item: ISvgJsonAttribute) {
         let items: CompletionItem[] = [];
         if(item.enum) {
-            return item.enum.map(e=>{
+            item.enum.forEach(e=>{
                 let label = (typeof e == 'string') ? e : e.name;
                 if(label && label.startsWith('<')) {
-                    return undefined;
+                    return;
                 }
                 let citem = new CompletionItem(label, CompletionItemKind.Enum);   
                 if(typeof e == 'object') {
                     citem.documentation = e.documentation;
                 }
                 citem.command = {command: "_svg.moveCursor", title: "Cursor Out Attribute", arguments:[1]};
-                return citem;
+                items.push(citem);
             });
         }
+        if(/^(color|fill|stroke|paint)$/.test(item.type)) {
+            colors.forEach(c=>{
+                items.push(new CompletionItem(c, CompletionItemKind.Enum));
+            });
+        }
+        
         return items;
     }
 
@@ -181,7 +210,10 @@ export class SVGCompletionItemProvider implements CompletionItemProvider
                         attr = svg.attributes[name];
                     }
                     if(typeof attr == 'object') {
-                        items.push(this.createAttributeCompletionItem(attr.name, attr));
+                        let item = this.createAttributeCompletionItem(attr.name, attr);
+                        if(item) {
+                            items.push(item);
+                        }
                     } else {
                         items.push(this.createAttributeCompletionItem(name));
                     }
@@ -210,14 +242,18 @@ export class SVGCompletionItemProvider implements CompletionItemProvider
             if(parentEle.subElements) {
                 for(let subElement of parentEle.subElements) {
                     let item = this.createCompletionItem(subElement, svg.elements[subElement]);
-                    items.push(item);
+                    if(item) {
+                        items.push(item);
+                    }
                 }
                 return items;
             }
         }
         for(let element in svg.elements) {
             let item = this.createCompletionItem(element, svg.elements[element]);
-            items.push(item);
+            if(item) {
+                items.push(item);
+            }
         }
         return items;
     }
