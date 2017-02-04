@@ -4,6 +4,7 @@ import * as vscode from 'vscode';
 
 import {SVGCompletionItemProvider} from './features/svgCompletionItemProvider';
 import {SvgSymbolProvider} from './features/svgSymbolProvider';
+import {SvgHoverProvider} from './features/svgHoverProvider';
 
 import {SvgPreviwerContentProvider} from './previewer'
 
@@ -43,10 +44,11 @@ export function activate(context: vscode.ExtensionContext) {
     )
     let d2 = vscode.commands.registerTextEditorCommand('_svg.moveCursor', moveCursor);
     let d3 = vscode.commands.registerTextEditorCommand('_svg.showSvg', previewSvg);
-    let d4 = vscode.workspace.registerTextDocumentContentProvider('svg-preview', new SvgPreviwerContentProvider())
-    let d5 = vscode.languages.registerDocumentSymbolProvider(SVG_MODE, new SvgSymbolProvider())
+    let d4 = vscode.workspace.registerTextDocumentContentProvider('svg-preview', new SvgPreviwerContentProvider());
+    let d5 = vscode.languages.registerDocumentSymbolProvider(SVG_MODE, new SvgSymbolProvider());
+    let d6 = vscode.languages.registerHoverProvider(SVG_MODE, new SvgHoverProvider());
 
-    context.subscriptions.push(d1, d2, d3, d4, d5);
+    context.subscriptions.push(d1, d2, d3, d4, d5, d6);
 }
 
 // this method is called when your extension is deactivated

@@ -1,4 +1,4 @@
-import {TextDocument, Position, CancellationToken} from 'vscode';
+import {TextDocument, Position, Range, CancellationToken} from 'vscode';
 
 /**
  * 从数组删除一个成员
@@ -176,4 +176,21 @@ export function getInAttirubteFromOffset(token: CancellationToken, body: string,
         }
     }
     return undefined;
+}
+
+export function getOffsetString(doc: TextDocument, position:Position, offset?: number) :string {
+    if(typeof offset != 'number') {
+        offset = 1;
+    }
+    let curOffset = doc.offsetAt(position);
+    curOffset += offset;
+    let newPosition = doc.positionAt(curOffset);
+    if(newPosition.isEqual(position)) {
+        return undefined;
+    }
+    if(newPosition.isBefore(position)) {
+        return doc.getText(new Range(newPosition, position));
+    } else {
+        return doc.getText(new Range(position, newPosition));
+    }
 }

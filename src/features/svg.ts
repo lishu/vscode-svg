@@ -11,46 +11,6 @@ type SvgAttributeCategories = "Animation_event_attributes" | "Animation_attribut
 
 type SvgEnum = string | {name:string, documentation:string} ;
 
-export enum ColorKeywords {
-    aliceblue,
-    antiquewhite,
-    aqua,
-    aquamarine,
-    azure,
-    beige,
-    bisque,
-    black,
-    blanchedalmond,
-    blue,
-    blueviolet,
-    brown,
-    burlywood,
-    cadetblue,
-    chartreuse,
-    chocolate,
-    coral,
-    cornflowerblue,
-    cornsilk,
-    crimson,
-    cyan,
-    darkblue,
-    darkcyan,
-    darkgoldenrod,
-    darkgray,
-    darkgreen,
-    darkgrey,
-    darkkhaki,
-    darkmagenta,
-    darkolivegreen,
-    darkorange,
-    darkorchid,
-    darkred,
-    darksalmon,
-    darkseagreen,
-    darkslateblue,
-    darkslategray
-}
-
 export interface ISvgJsonAttribute {
     /** 属性名称 */
     name: string;
@@ -1943,6 +1903,10 @@ export function getSvgJson(): ISvgJson {
                 name: "href",
                 documentation: "The href attribute defines a link to a resource as a reference URL. The exact meaning of that link depends on the context of each element using it.",
                 type: "URL"
+            },
+            "id": {
+                name: "id",
+                documentation: "The id attribute defines a identity for current element."
             },
             "image-rendering": {
                 name: "image-rendering",
