@@ -5,7 +5,7 @@
     "version": "0.0.2",
     "publisher": "jock",
     "engines": {
-        "vscode": "^1.5.0"
+        "vscode": "^1.8.0"
     },
     "icon": "images/svglogo.png",
     "preview": true,

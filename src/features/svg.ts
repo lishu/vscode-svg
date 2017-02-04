@@ -46,7 +46,7 @@ export interface ISvgJsonElement {
     /** 可用属性 */
     attributes?: Array<string | ISvgJsonAttribute>;
     /** 默认属性 */
-    defaultAttributes?: Array<string>;
+    defaultAttributes?: {[pn:string]: string};
     /** 是否已弃用，或弃用的详细说明 */
     deprecated?: boolean | string;
     /** 单选元素 */
@@ -101,7 +101,10 @@ export function getSvgJson(): ISvgJson {
                     "xlink:show",
                     "xlink:actuate",
                     "xlink:href"
-                ]
+                ],
+                "defaultAttributes": {
+                    "href" : "#url"
+                }
             },
             "altGlyphDef": {
                 "deprecated": "This feature has been removed from the Web standards.",
@@ -1008,6 +1011,12 @@ export function getSvgJson(): ISvgJson {
                     "transform",
                     "x1", "x2", "y1", "y2"
                 ],
+                defaultAttributes:{
+                    "x1": "0",
+                    "x2": "100",
+                    "y1": "0",
+                    "y2": "100",
+                },
                 simple: true
             },
             "linearGradient": {
@@ -1129,6 +1138,9 @@ export function getSvgJson(): ISvgJson {
                     "pathLength",
                     "fillOpacity"
                 ],
+                defaultAttributes: {
+                    "d": "<path>"
+                },
                 simple: true
             },
             "pattern": {
@@ -1180,6 +1192,9 @@ export function getSvgJson(): ISvgJson {
                     "transform",
                     "points"
                 ],
+                defaultAttributes: {
+                    "points": "<points>"
+                },
                 simple: true
             },
             "polyline": {
@@ -1199,6 +1214,9 @@ export function getSvgJson(): ISvgJson {
                     "transform",
                     "points"
                 ],
+                defaultAttributes: {
+                    "points": "<points>"
+                },
                 simple: true
             },
             "radialGradient": {
@@ -1248,6 +1266,10 @@ export function getSvgJson(): ISvgJson {
                     "rx",
                     "ry"
                 ],
+                defaultAttributes: {
+                    "width": "100",
+                    "height": "100"
+                },
                 simple: true
             },
             "script": {

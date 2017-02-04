@@ -8,8 +8,11 @@ import {
     CompletionItem, 
     CompletionList, 
     CompletionItemKind,
+    SnippetString,
     TextEdit,
-    workspace
+    TextEditor,
+    workspace,
+    version
 } from 'vscode';
 
 import * as fs from 'fs';
@@ -27,11 +30,15 @@ export class SVGCompletionItemProvider implements CompletionItemProvider
     public showAdvanced: boolean = false;
     public showDeprecated: boolean = false;
 
+    public supportSnippet: boolean = false;
+
     constructor(){
         if(svg == null){
             svg = getSvgJson();
         }
         let self = this;
+        let splitVersion = version.split('.');
+        this.supportSnippet = parseInt(splitVersion[0])>1 || (splitVersion[0] == '1' && parseInt(splitVersion[1]) >= 8);
         workspace.onDidChangeConfiguration(function(){
             self.updateConfiguration();
         });
@@ -63,6 +70,22 @@ export class SVGCompletionItemProvider implements CompletionItemProvider
             if(ele.deprecated){
                 item.documentation = ele.documentation + '\n\n**DEPRECATED**';
             }
+        }
+        if(this.supportSnippet && ele.defaultAttributes) {
+            // BUILD SnippetString
+            let snippetString = element;
+            for(let attr in ele.defaultAttributes) {
+                snippetString += ' ' + attr + '="${' + attr + ':' + ele.defaultAttributes[attr] + '}"';
+            }
+            if(ele.simple === true) {
+                snippetString += '${0} /';
+            } else if(ele.inline === true) {
+                snippetString += '>${0}</' + element;
+            } else {
+                snippetString += '>\n\t${0}\n</' + element;
+            }
+            item.insertText = new SnippetString(snippetString);
+            return item;
         }
         if(ele.simple === true) {
             item.insertText = `${item.label} /`;
