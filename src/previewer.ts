@@ -30,7 +30,7 @@ export class SvgPreviwerContentProvider implements vscode.TextDocumentContentPro
     }
 
     isSvgDocument(document:vscode.TextDocument): boolean {
-        return /\.svg$/i.test(document.uri.path);
+        return /\.svg$/i.test(document.uri.path) || document.languageId == 'svg' || document.languageId == 'xml' && /^<svg\b/.test(document.getText());
     }
 
     provideTextDocumentContent(uri: vscode.Uri, token: vscode.CancellationToken): Thenable<string> {

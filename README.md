@@ -28,6 +28,12 @@ Configuration option functionality is not yet implemented.
 
 ## Update History
 
+### 0.0.3
+* New Hover Info Support.
+* Improve Completion list in paint show color keywords.
+* Improve Completion list work like snipple (For base sharp). Required vscode >=1.8 .
+* The `svg.completion.showDeprecated` Configuration item is actived, will not show deprecated item in completion list by default(`false`).
+
 ### 0.0.2
 
 * Improve Preview.
