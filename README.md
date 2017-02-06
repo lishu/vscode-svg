@@ -22,11 +22,16 @@ SVG Preview
 
 > Tip: All Completion list is context, will not show all items.
 
+Rename Tag Name or Id Reference.
+
 ## Known Issues
 
 Configuration option functionality is not yet implemented.
 
 ## Update History
+
+### 0.0.4
+* Add New Rename Provider.
 
 ### 0.0.3
 * New Hover Info Support.

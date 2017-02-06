@@ -90,6 +90,21 @@ export function getPrevTagFromOffset(body: string, offset: number): ITagMatchInf
     return undefined;
 }
 
+export function getNextTagFromOffset(body: string, offset: number): ITagMatchInfo {
+    let doc = body.substr(offset);
+    let match = /(^[^<]*?)<([\/\!\?]?[\w\-]*)(\s*[^>]*)>/gi.exec(doc);
+    if (match && match.length > 1) {
+        let attrs = match[3];
+        return {
+            index: match[1].length + offset,
+            tagName: match[2],
+            tagAttrs: attrs,
+            simple: attrs && attrs.endsWith('/')
+        };
+    }
+    return undefined;
+}
+
 /**
  * 返回父级 XML 标签的位置和名称。
  */
