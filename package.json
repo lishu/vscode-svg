@@ -2,7 +2,7 @@
     "name": "svg",
     "displayName": "SVG",
     "description": "%description%",
-    "version": "0.0.4",
+    "version": "0.0.5",
     "publisher": "jock",
     "engines": {
         "vscode": "^1.8.0"
@@ -56,6 +56,7 @@
                 "extensions": [
                     ".svg"
                 ],
+                "firstLine": "(\\<svg)|(\\<\\!doctype\\s+svg)",
                 "mimetypes": [
                     "image/svg+xml"  
                 ],

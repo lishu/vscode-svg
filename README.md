@@ -4,31 +4,36 @@ A Powerful SVG Langauge Support Extension(beta).
 
 ## Features
 
-SVG Elements Auto Completion.
+### SVG Elements Auto Completion.
 
 ![feature 1](images/f1.png)
 
-SVG Attributes Auto Completion.
+### SVG Attributes Auto Completion.
 
 ![feature 2](images/f2.png)
 
-Document Symbol with SVG Element [id].
+### Document Symbol with SVG Element [id].
 
 ![feature 3](images/f3.png)
 
-SVG Preview
+### SVG Preview
 
 ![feature 4](images/f4.png)
 
 > Tip: All Completion list is context, will not show all items.
 
-Rename Tag Name or Id Reference.
+### Rename Tag Name or Id Reference.
+
+### In Id Reference Click Goto id="" element.
 
 ## Known Issues
 
 Configuration option functionality is not yet implemented.
 
 ## Update History
+
+### 0.0.5
+* Add url(#id) Definition Provider.
 
 ### 0.0.4
 * Add New Rename Provider.

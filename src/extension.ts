@@ -6,6 +6,7 @@ import {SVGCompletionItemProvider} from './features/svgCompletionItemProvider';
 import {SvgSymbolProvider} from './features/svgSymbolProvider';
 import {SvgHoverProvider} from './features/svgHoverProvider';
 import {SvgRenameProvider} from './features/svgRenameProvider';
+import {SvgDefinitionProvider} from './features/svgDefinitionProvider';
 
 import {SvgPreviwerContentProvider} from './previewer'
 
@@ -14,7 +15,7 @@ const SVG_MODE : vscode.DocumentSelector = [
     {
         scheme: "file",
         language: "xml",
-        pattern: "**/*.svg"
+        pattern: "*.svg"
     }
 ];
 
@@ -38,6 +39,7 @@ function previewSvg(){
 
 
 export function activate(context: vscode.ExtensionContext) {
+    console.log('svg activate');
     let d1 = vscode.languages.registerCompletionItemProvider(
         SVG_MODE,
         new SVGCompletionItemProvider(),
@@ -49,8 +51,9 @@ export function activate(context: vscode.ExtensionContext) {
     let d5 = vscode.languages.registerDocumentSymbolProvider(SVG_MODE, new SvgSymbolProvider());
     let d6 = vscode.languages.registerHoverProvider(SVG_MODE, new SvgHoverProvider());
     let d7 = vscode.languages.registerRenameProvider(SVG_MODE, new SvgRenameProvider());
+    let d8 = vscode.languages.registerDefinitionProvider(SVG_MODE, new SvgDefinitionProvider());   
 
-    context.subscriptions.push(d1, d2, d3, d4, d5, d6, d7);
+    context.subscriptions.push(d1, d2, d3, d4, d5, d6, d7, d8);
 }
 
 // this method is called when your extension is deactivated

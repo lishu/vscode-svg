@@ -175,8 +175,8 @@ export class SVGCompletionItemProvider implements CompletionItemProvider
      */
     provideCompletionItems(document: TextDocument, position: Position, token: CancellationToken): CompletionItem[]
     {
-        let prevChar = document.getText(new Range(position.line, position.character - 1, position.line, position.character));
-        let nextChar = document.getText(new Range(position.line, position.character, position.line, position.character + 1));
+        let prevChar = document.getText(new Range(position.translate(0, -1), position));
+        let nextChar = document.getText(new Range(position, position.translate(0, 1)));
         if(prevChar == '<') {
             return this.provideTagItems(document, position, token);
         }
