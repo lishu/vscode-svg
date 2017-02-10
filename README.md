@@ -24,7 +24,11 @@ A Powerful SVG Langauge Support Extension(beta).
 
 ### Rename Tag Name or Id Reference.
 
+Cursor in Tag Name or Id Attribute or url(#id) Hit F2(Windows) Key, Rename it!
+
 ### In Id Reference Click Goto id="" element.
+
+Hot Ctrl Key and Move mouse to a url(#id), That it!
 
 ## Known Issues
 

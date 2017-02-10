@@ -39,7 +39,6 @@ function previewSvg(){
 
 
 export function activate(context: vscode.ExtensionContext) {
-    console.log('svg activate');
     let d1 = vscode.languages.registerCompletionItemProvider(
         SVG_MODE,
         new SVGCompletionItemProvider(),
