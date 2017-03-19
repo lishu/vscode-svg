@@ -18,5 +18,5 @@ export class SvgDefinitionProvider implements DefinitionProvider {
             }
         }
         return null;
-    }   
+    }
 }
