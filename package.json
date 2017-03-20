@@ -92,6 +92,60 @@
                     "default": false,
                     "description": "%configuration.completion.showDeprecated.description%"
                 },
+                "svg.format.convertColors": {
+                    "title": "%configuration.format.convertColors.title%",
+                    "type": "boolean",
+                    "default": false,
+                    "description": "%configuration.format.convertColors.description%"
+                },
+                "svg.format.convertShapeToPath": {
+                    "title": "%configuration.format.convertShapeToPath.title%",
+                    "type": "boolean",
+                    "default": false,
+                    "description": "%configuration.format.convertShapeToPath.description%"
+                },
+                "svg.format.convertTransform": {
+                    "title": "%configuration.format.convertTransform.title%",
+                    "type": "boolean",
+                    "default": false,
+                    "description": "%configuration.format.convertTransform.description%"
+                },
+                "svg.format.mergePaths": {
+                    "title": "%configuration.format.mergePaths.title%",
+                    "type": "boolean",
+                    "default": false,
+                    "description": "%configuration.format.mergePaths.description%"
+                },
+                "svg.format.removeComments": {
+                    "title": "%configuration.format.removeComments.title%",
+                    "type": "boolean",
+                    "default": false,
+                    "description": "%configuration.format.removeComments.description%"
+                },
+                "svg.format.removeDesc": {
+                    "title": "%configuration.format.removeDesc.title%",
+                    "type": "boolean",
+                    "default": false,
+                    "description": "%configuration.format.removeDesc.description%"
+                },
+                "svg.format.removeDoctype": {
+                    "title": "%configuration.format.removeDoctype.title%",
+                    "type": "boolean",
+                    "default": false,
+                    "description": "%configuration.format.removeDoctype.description%"
+                },
+                "svg.format.removeMetadata": {
+                    "title": "%configuration.format.removeMetadata.title%",
+                    "type": "boolean",
+                    "default": false,
+                    "description": "%configuration.format.removeMetadata.description%"
+                },
+                "svg.format.sortAttrs": {
+                    "title": "%configuration.format.sortAttrs.title%",
+                    "type": "boolean",
+                    "default": true,
+                    "description": "%configuration.format.sortAttrs.description%"
+                },
                 "svg.version": {
                     "title": "%configuration.version.title%",
                     "enum": [
