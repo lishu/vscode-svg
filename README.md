@@ -30,6 +30,11 @@ Cursor in Tag Name or Id Attribute or url(#id) Hit F2(Windows) Key, Rename it!
 
 Hot Ctrl Key and Move mouse to a url(#id), That it!
 
+### SVG Format Support
+Formatting support using SVGO, which can prettify SVGs and sort tag attributes. 
+
+**Thanks to [LaurentTreguier](https://github.com/LaurentTreguier) for sharing SVG formatting features**
+
 ## Known Issues
 
 Configuration option functionality is not yet implemented.
