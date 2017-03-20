@@ -11,7 +11,7 @@
     "preview": true,
     "galleryBanner": {
         "color": "#FFB13B",
-        "theme":"light"
+        "theme": "light"
     },
     "categories": [
         "Languages",
@@ -30,23 +30,26 @@
         "url": "https://github.com/lishu/vscode-svg.git"
     },
     "contributes": {
-        "commands": [{
-            "command": "_svg.moveCursor",
-            "title": "Move Cursor"
-        },{
-            "command": "_svg.showSvg",
-            "title": "%svg.showSvg.title%",
-            "icon": {
-                "dark": "./images/Preview_inverse.svg",
-                "light": "./images/Preview.svg"
+        "commands": [
+            {
+                "command": "_svg.moveCursor",
+                "title": "Move Cursor"
+            },
+            {
+                "command": "_svg.showSvg",
+                "title": "%svg.showSvg.title%",
+                "icon": {
+                    "dark": "./images/Preview_inverse.svg",
+                    "light": "./images/Preview.svg"
+                }
             }
-        }],
+        ],
         "menus": {
             "editor/title": [
                 {
                     "command": "_svg.showSvg",
-					"when": "editorLangId == svg",
-					"group": "navigation"
+                    "when": "editorLangId == svg",
+                    "group": "navigation"
                 }
             ]
         },
@@ -58,10 +61,11 @@
                 ],
                 "firstLine": "(\\<svg)|(\\<\\!doctype\\s+svg)",
                 "mimetypes": [
-                    "image/svg+xml"  
+                    "image/svg+xml"
                 ],
                 "aliases": [
-                    "SVG", "svg"
+                    "SVG",
+                    "svg"
                 ],
                 "configuration": "./svg.language-configuration.json"
             }
@@ -107,10 +111,13 @@
         "test": "node ./node_modules/vscode/bin/test"
     },
     "devDependencies": {
-        "typescript": "^2.0.3",
-        "vscode": "^1.0.0",
-        "mocha": "^2.3.3",
+        "@types/mocha": "^2.2.32",
         "@types/node": "^6.0.40",
-        "@types/mocha": "^2.2.32"
+        "mocha": "^2.3.3",
+        "typescript": "^2.0.3",
+        "vscode": "^1.0.0"
+    },
+    "dependencies": {
+        "svgo": "^0.7.2"
     }
 }
