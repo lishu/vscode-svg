@@ -10,7 +10,7 @@
             "documentation": "定义一个剪切路径。"
         },
         "defs": {
-            "documentation": "一个窗口定义一些可重用资源。"
+            "documentation": "定义一些可重用资源。"
         },
         "desc": {
             "documentation": "指定描述说明信息。"
@@ -22,7 +22,7 @@
             "documentation": "定义一组滤镜。"
         },
         "g": {
-            "documentation": "提供一个放置其它 SVG 元素的容器。"
+            "documentation": "一个放置其它 SVG 元素的容器。"
         },
         "line": {
             "documentation": "定义一个直线。"
