@@ -41,6 +41,13 @@ Configuration option functionality is not yet implemented.
 
 ## Update History
 
+### 0.0.7
+* Fix some debug time warning.
+* Change Preview use 'Transparent' background.
+
+### 0.0.6
+* Add Formatting support using SVGO.
+
 ### 0.0.5
 * Add url(#id) Definition Provider.
 
