@@ -31,7 +31,9 @@ Cursor in Tag Name or Id Attribute or url(#id) Hit F2(Windows) Key, Rename it!
 Hot Ctrl Key and Move mouse to a url(#id), That it!
 
 ### SVG Format Support
-Formatting support using SVGO, which can prettify SVGs and sort tag attributes. 
+Formatting support using SVGO, which can prettify SVGs and sort tag attributes.
+SVGO works as a group of plugins that can be activated or desactivated (which is default for most in this extension).
+Information on the plugins can be found [here](https://www.npmjs.com/package/svgo).
 
 **Thanks to [LaurentTreguier](https://github.com/LaurentTreguier) for sharing SVG formatting features**
 

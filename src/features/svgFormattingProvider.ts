@@ -1,19 +1,27 @@
-import {DocumentFormattingEditProvider, TextDocument, Position, Range, CancellationToken, ProviderResult, FormattingOptions, TextEdit, workspace} from 'vscode';
+import { readdirSync } from 'fs';
+import { join, extname } from 'path';
+import { DocumentFormattingEditProvider, TextDocument, Position, Range, CancellationToken, ProviderResult, FormattingOptions, TextEdit, workspace } from 'vscode';
 import svgo = require('svgo');
 
 export class SvgFormattingProvider implements DocumentFormattingEditProvider {
+    private _plugins: string[];
+
+    constructor() {
+        this._plugins = readdirSync(join(__dirname, '..', '..', '..', 'node_modules', 'svgo', 'plugins'))
+            .map((file) => file.replace(extname(file), ''));
+    }
+
     provideDocumentFormattingEdits(document: TextDocument, options: FormattingOptions, token: CancellationToken): ProviderResult<TextEdit[]> {
-        let config = workspace.getConfiguration('svg.format');
-        let plugins = ['convertColors', 'convertShapeToPath', 'convertTransform', 'mergePaths',
-            'removeComments', 'removeDesc', 'removeDoctype', 'removeMetadata', 'sortAttrs']
+        let config = workspace.getConfiguration('svg.format.plugins');
+        let plugins = this._plugins
             .map((configName) => {
                 let plugin = {};
-                plugin[configName] = config.get(configName);
+                plugin[configName] = config[configName] || false;
                 return plugin;
             });
         let formatter = new svgo({
             plugins: plugins,
-            js2svg: {pretty: true}
+            js2svg: { pretty: true }
         });
 
         return new Promise((resolve) => {
