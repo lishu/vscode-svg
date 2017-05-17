@@ -43,6 +43,9 @@ Configuration option functionality is not yet implemented.
 
 ## Update History
 
+### 0.0.8
+* Change Format SVGO Options.
+
 ### 0.0.7
 * Fix some debug time warning.
 * Change Preview use 'Transparent' background.
