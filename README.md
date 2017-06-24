@@ -37,6 +37,10 @@ Information on the plugins can be found [here](https://www.npmjs.com/package/svg
 
 **Thanks to [LaurentTreguier](https://github.com/LaurentTreguier) for sharing SVG formatting features**
 
+### Minify SVG with SVGO
+
+Open the **Command Palette** (`⇧⌘P` on Mac and `Ctrl+Shift+P` on Win/Linux) and run `Minify SVG`. This will reduce the filesize significantly by removing all unnecessary code from the image.
+
 ## Known Issues
 
 Configuration option functionality is not yet implemented.

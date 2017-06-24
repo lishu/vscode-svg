@@ -35,6 +35,10 @@
                 "title": "Move Cursor"
             },
             {
+                "command": "_svg.minifySvg",
+                "title": "Minify SVG"
+            },
+            {
                 "command": "_svg.showSvg",
                 "title": "%svg.showSvg.title%",
                 "icon": {
