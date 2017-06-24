@@ -35,17 +35,23 @@ Formatting support using SVGO, which can prettify SVGs and sort tag attributes.
 SVGO works as a group of plugins that can be activated or desactivated (which is default for most in this extension).
 Information on the plugins can be found [here](https://www.npmjs.com/package/svgo).
 
-**Thanks to [LaurentTreguier](https://github.com/LaurentTreguier) for sharing SVG formatting features**
-
 ### Minify SVG with SVGO
 
 Open the **Command Palette** (`⇧⌘P` on Mac and `Ctrl+Shift+P` on Win/Linux) and run `Minify SVG`. This will reduce the filesize significantly by removing all unnecessary code from the image.
 
+## Contributors
+
+* [LaurentTreguier](https://github.com/LaurentTreguier) for sharing SVG formatting features
+* [Ansimorph](https://github.com/Ansimorph) for sharing Minify SVG features
+
 ## Known Issues
 
-Configuration option functionality is not yet implemented.
+SVG Version 2.0 is not included.
 
 ## Update History
+
+### 0.0.9
+* Add `Minify SVG` command.
 
 ### 0.0.8
 * Change Format SVGO Options.

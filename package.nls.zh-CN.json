@@ -1,5 +1,6 @@
 {
     "description": "SVG 语言支持",
+    "svg.minifySvg.title": "压缩 SVG",
     "svg.showSvg.title": "预览 SVG",
     "configuration.completion.showAdvanced.title": "在完成列表中显示高级选项。",
     "configuration.completion.showAdvanced.description": "指定是否在完成列表中显示不常用的高级选项。",

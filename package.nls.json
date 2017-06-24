@@ -1,5 +1,6 @@
 {
     "description": "SVG Language Support",
+    "svg.minifySvg.title": "Minify SVG",
     "svg.showSvg.title": "Preview SVG",
     "configuration.completion.showAdvanced.title": "Show advanced items in completion list.",
     "configuration.completion.showAdvanced.description": "Specifies whether advanced items that are not commonly used are displayed in the AutoComplete list.",

@@ -2,7 +2,7 @@
     "name": "svg",
     "displayName": "SVG",
     "description": "%description%",
-    "version": "0.0.8",
+    "version": "0.0.9",
     "publisher": "jock",
     "engines": {
         "vscode": "^1.8.0"
@@ -36,7 +36,7 @@
             },
             {
                 "command": "_svg.minifySvg",
-                "title": "Minify SVG"
+                "title": "%svg.minifySvg.title%"
             },
             {
                 "command": "_svg.showSvg",
