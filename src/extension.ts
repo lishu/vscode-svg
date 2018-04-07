@@ -9,6 +9,7 @@ import {SvgRenameProvider} from './features/svgRenameProvider';
 import {SvgDefinitionProvider} from './features/svgDefinitionProvider';
 import {SvgFormattingProvider} from './features/svgFormattingProvider';
 import {svgMinify} from './features/svgMinify';
+import {svgPretty} from './features/svgPretty';
 
 import {SvgPreviwerContentProvider} from './previewer'
 
@@ -55,8 +56,9 @@ export function activate(context: vscode.ExtensionContext) {
     let d8 = vscode.languages.registerDefinitionProvider(SVG_MODE, new SvgDefinitionProvider());
     let d9 = vscode.languages.registerDocumentFormattingEditProvider(SVG_MODE, new SvgFormattingProvider());
     let d10 = vscode.commands.registerTextEditorCommand('_svg.minifySvg', svgMinify);
+    let d11 = vscode.commands.registerTextEditorCommand('_svg.prettySvg', svgPretty);
 
-    context.subscriptions.push(d1, d2, d3, d4, d5, d6, d7, d8, d10);
+    context.subscriptions.push(d1, d2, d3, d4, d5, d6, d7, d8, d10, d11);
 }
 
 // this method is called when your extension is deactivated
