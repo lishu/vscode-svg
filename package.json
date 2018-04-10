@@ -99,6 +99,12 @@
                     "default": false,
                     "description": "%configuration.completion.showDeprecated.description%"
                 },
+                "svg.disableFormatOnSave": {
+                    "title": "%configuration.completion.disableFormatOnSave.title%",
+                    "type": "boolean",
+                    "default": false,
+                    "description": "%configuration.completion.disableFormatOnSave.description%"
+                },
                 "svg.format.plugins": {
                     "title": "%configuration.format.plugins.title%",
                     "type": "object",

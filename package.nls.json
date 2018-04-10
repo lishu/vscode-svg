@@ -7,6 +7,8 @@
     "configuration.completion.showAdvanced.description": "Specifies whether advanced items that are not commonly used are displayed in the AutoComplete list.",
     "configuration.completion.showDeprecated.title": "Show deprecated items in completion list.",
     "configuration.completion.showDeprecated.description": "Specifies whether advanced items that are deprecated are displayed in the AutoComplete list.",
+    "configuration.completion.disableFormatOnSave.title": "[Experimental]Disable SVGO Format on save",
+    "configuration.completion.disableFormatOnSave.description": "Focus Disable SVGO Format On Save event if editor.formatOnSave is true",
     "configuration.format.plugins.title": "SVGO plugins array.",
     "configuration.format.plugins.description": "Each items corresponds to a plugin that should be enabled, the rest is disabled.",
     "configuration.version.title": "SVG Version",

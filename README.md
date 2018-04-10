@@ -52,6 +52,7 @@ SVG Version 2.0 is not included.
 
 ### 0.1.0
 * Add `Pretty SVG` command.
+* Add Experimental Setting `svg.disableFormatOnSave`.
 
 ### 0.0.9
 * Add `Minify SVG` command.
