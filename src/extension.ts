@@ -14,7 +14,14 @@ import {svgPretty} from './features/svgPretty';
 import {SvgPreviwerContentProvider} from './previewer'
 
 const SVG_MODE : vscode.DocumentSelector = [
-    'svg',
+    {
+        scheme: "file",
+        language: "svg"
+    },
+    {
+        scheme: "untitled",
+        language: "svg"
+    },
     {
         scheme: "file",
         language: "xml",

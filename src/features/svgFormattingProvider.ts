@@ -53,14 +53,19 @@ export class SvgFormattingProvider implements DocumentFormattingEditProvider {
             js2svg: { pretty: true }
         });
 
-        return new Promise((resolve) => {
+        return new Promise((resolve, reject) => {
             var oldText = document.getText();
             formatter.optimize(oldText, (result) => {
-                let range = new Range(new Position(0, 0), document.lineAt(document.lineCount - 1).range.end)
-                resolve([new TextEdit(range, result.data)]);
-                this._lastKnownFormatChanged = (oldText != result.data);
-                this._lastKnownFormatDocument = document.fileName;
-                this._lastKnownFormatTime = new Date().getTime();
+                if('data' in result) {
+                    let range = new Range(new Position(0, 0), document.lineAt(document.lineCount - 1).range.end)
+                    resolve([new TextEdit(range, result.data)]);
+                    this._lastKnownFormatChanged = (oldText != result.data);
+                    this._lastKnownFormatDocument = document.fileName;
+                    this._lastKnownFormatTime = new Date().getTime();
+                } else if('error' in result){
+                    window.showWarningMessage('Unable to format because of an error\n'+result.error);
+                    reject(result.error);
+                }
             });
         });
     }
