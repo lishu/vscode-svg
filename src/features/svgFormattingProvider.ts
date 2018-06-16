@@ -1,7 +1,7 @@
 import { readdirSync } from 'fs';
 import { join, extname } from 'path';
 import { DocumentFormattingEditProvider, TextDocument, Position, Range, CancellationToken, ProviderResult, FormattingOptions, TextEdit, workspace, window, commands, TextDocumentWillSaveEvent, TextDocumentSaveReason } from 'vscode';
-let svgo = require('svgo');
+import svgo = require('svgo');
 
 export class SvgFormattingProvider implements DocumentFormattingEditProvider {
     private _plugins: string[];
@@ -55,17 +55,16 @@ export class SvgFormattingProvider implements DocumentFormattingEditProvider {
 
         return new Promise((resolve, reject) => {
             var oldText = document.getText();
-            formatter.optimize(oldText, (result) => {
-                if('data' in result) {
-                    let range = new Range(new Position(0, 0), document.lineAt(document.lineCount - 1).range.end)
-                    resolve([new TextEdit(range, result.data)]);
-                    this._lastKnownFormatChanged = (oldText != result.data);
-                    this._lastKnownFormatDocument = document.fileName;
-                    this._lastKnownFormatTime = new Date().getTime();
-                } else if('error' in result){
-                    window.showWarningMessage('Unable to format because of an error\n'+result.error);
-                    reject(result.error);
-                }
+            var p = formatter.optimize(oldText);
+            p.then((result) => {
+                let range = new Range(new Position(0, 0), document.lineAt(document.lineCount - 1).range.end)
+                resolve([new TextEdit(range, result.data)]);
+                this._lastKnownFormatChanged = (oldText != result.data);
+                this._lastKnownFormatDocument = document.fileName;
+                this._lastKnownFormatTime = new Date().getTime();
+            }).catch(e=>{
+                window.showWarningMessage('Unable to format because of an error\r\n'+e);
+                reject(e);
             });
         });
     }
