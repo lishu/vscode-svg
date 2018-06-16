@@ -140,6 +140,8 @@
         "vscode": "^1.1.18"
     },
     "dependencies": {
+        "colors": "^1.1.2",
+        "sprintf-js": "^1.0.3",
         "svgo": "^1.0.1"
     }
 }
