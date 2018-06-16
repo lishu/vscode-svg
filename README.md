@@ -50,6 +50,9 @@ SVG Version 2.0 is not included.
 
 ## Update History
 
+### 0.1.1
+* Fix The contents of the document are emptied when the format fails.
+
 ### 0.1.0
 * Add `Pretty SVG` command.
 * Add Experimental Setting `svg.disableFormatOnSave`.
