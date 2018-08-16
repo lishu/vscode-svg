@@ -1356,7 +1356,8 @@ export function getSvgJson(): ISvgJson {
                     },
                     "baseProfile",
                     "x", "y", "width", "height", "preserveAspectRatio", "contentScriptType", "contentStyleType",
-                    "viewBox"
+                    "viewBox",
+                    "xmlns", "xmlns:xlink"
                 ]
             },
             "switch": {
@@ -2457,6 +2458,16 @@ For the <radialgradient> element, this attribute defines the radius of the large
             "xml:lang": {
                 name: "xml:lang",
                 documentation: `xml:lang is a universal attribute allowed in all XML dialects to mark up the natural human language that an element contains. It's almost identical in usage to HTML's lang, but in conforming XML 1.0 documents, it does not allow the use of a null attribute value (xml:lang="") to indicate an unknown language. Instead, use xml:lang="und".`
+            },
+            "xmlns": {
+                name: "xmlns",
+                documentation: "The SVG namespace, declared as the default namespace for this element and its children.",
+                enum: ["http://www.w3.org/2000/svg"]
+            },
+            "xmlns:xlink": {
+                name: "xmlns:xlink",
+                documentation: "The XLink namespace, attached to the `xlink` prefix.",
+                enum: ["http://www.w3.org/1999/xlink"]
             },
             "y": {
                 name: "y",
