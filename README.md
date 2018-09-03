@@ -1,6 +1,7 @@
 # svg
 
 A Powerful SVG Langauge Support Extension(beta).
+Almost all the features you need to handle SVG.
 
 ## Features
 
@@ -49,6 +50,9 @@ Open the **Command Palette** (`⇧⌘P` on Mac and `Ctrl+Shift+P` on Win/Linux) 
 SVG Version 2.0 is not included.
 
 ## Update History
+
+### 0.1.2
+* Add 'xlink:href' attribute.
 
 ### 0.1.1
 * Fix The contents of the document are emptied when the format fails.
