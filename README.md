@@ -49,6 +49,9 @@ Open the **Command Palette** (`⇧⌘P` on Mac and `Ctrl+Shift+P` on Win/Linux) 
 
 SVG Version 2.0 is not included.
 
+## Donations
+[Buy me a cup of coffee.](https://www.paypal.me/jockli)
+
 ## Update History
 
 ### 0.1.2
