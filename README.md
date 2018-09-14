@@ -1,6 +1,6 @@
 # svg
 
-A Powerful SVG Langauge Support Extension(beta).
+A Powerful SVG Language Support Extension(beta).
 Almost all the features you need to handle SVG.
 
 ## Features
