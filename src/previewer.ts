@@ -10,6 +10,7 @@ export class SvgPreviwerContentProvider
     d1: vscode.Disposable;
     d2: vscode.Disposable;
     previewUri: string;
+    scale: number = 1;
     //lastDocument: vscode.TextDocument;
 
     /**
@@ -53,7 +54,9 @@ export class SvgPreviwerContentProvider
                     console.log('svg.preview.background updated');
                 });
                 break;
-        
+            case 'scale':
+                this.scale = e.scale;
+                break;
             default:
                 console.warn(`unknown action message ${e.action}`);
                 break;
@@ -133,6 +136,18 @@ export class SvgPreviwerContentProvider
             height: 17px;
             border: solid 1px #eee;
         }
+        #__toolbar>.btn-group>.label{
+            position:relative;
+            padding:0 2px;
+            top: -2px;
+            font-size: 10px;
+            height: 17px;
+            cursor: default;
+        }
+        #__svg{
+            transform-origin:top left;
+            transform:scale(${this.scale});
+        }
         </style>`);
         switch (bg) {
             case 'white':
@@ -153,7 +168,7 @@ export class SvgPreviwerContentProvider
         html.push(svg);
         html.push('</div>');
         html.push(`<script>
-        var toolbar, groupBackground;
+        var toolbar, groupBackground, labelZoom;
 
 function createButtonGroup(){
     var group = document.createElement('div');
@@ -177,7 +192,7 @@ const vscode = acquireVsCodeApi();
 
 var minScale = 0.08;
 var maxScale = 8;
-var scale = 1;
+var scale = ${this.scale};
 
 function normalScale() {
     if(scale < minScale) {
@@ -187,6 +202,11 @@ function normalScale() {
     {
         scale = maxScale;
     }
+    showZoom();
+}
+
+function showZoom(){
+    labelZoom.innerText = (scale * 100).toFixed(0) + '%';
 }
 
 function init() {
@@ -206,22 +226,28 @@ function init() {
     btnBg.className = 'btn-bg bg-custom';
 
     var groupZoom = createButtonGroup();
+    labelZoom = document.createElement('span');
+    labelZoom.style.fontSize = "10px";
+    labelZoom.className = 'label';
+    showZoom();
+    groupZoom.appendChild(labelZoom);
     createButton(groupZoom, 'Original', e=>{
         scale = 1;
-        document.getElementById('__svg').style.transformOrigin = 'top left';
+        showZoom();
         document.getElementById('__svg').style.transform = 'scale('+scale+')';
+        vscode.postMessage({action: 'scale', scale: scale});
     }).className = 'btn';
     createButton(groupZoom, 'Zoom In', e=>{
-        document.getElementById('__svg').style.transformOrigin = 'top left';
         scale*=2;
         normalScale();
         document.getElementById('__svg').style.transform = 'scale('+scale+')';
+        vscode.postMessage({action: 'scale', scale: scale});
     }).className = 'btn';
     createButton(groupZoom, 'Zoom Out', e=>{
         scale/=2;
         normalScale();
-        document.getElementById('__svg').style.transformOrigin = 'top left';
         document.getElementById('__svg').style.transform = 'scale('+scale+')';
+        vscode.postMessage({action: 'scale', scale: scale});
     }).className = 'btn';
 }
 

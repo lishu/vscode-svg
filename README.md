@@ -51,6 +51,9 @@ SVG Version 2.0 is not included.
 
 ## Update History
 
+### 0.1.4
+* FIX Preview Zoom Reset.
+
 ### 0.1.3
 * Add Zoom to Preview.
 * Add Background Switch to Preview.
