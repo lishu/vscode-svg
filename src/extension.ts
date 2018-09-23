@@ -41,11 +41,7 @@ function moveCursor(textEditor: vscode.TextEditor, edit: vscode.TextEditorEdit, 
     }
 }
 
-function previewSvg(){
-    let uri = vscode.Uri.parse("svg-preview:/jock/svg");
-    SvgPreviwerContentProvider.lastActiveDocument = vscode.window.activeTextEditor && vscode.window.activeTextEditor.document;
-    vscode.commands.executeCommand('vscode.previewHtml', uri, vscode.ViewColumn.Two, `SVG Preview`)
-}
+let previewPanel : vscode.WebviewPanel = null;
 
 
 export function activate(context: vscode.ExtensionContext) {
@@ -55,8 +51,8 @@ export function activate(context: vscode.ExtensionContext) {
         "<", " ", "=", "\""
     )
     let d2 = vscode.commands.registerTextEditorCommand('_svg.moveCursor', moveCursor);
-    let d3 = vscode.commands.registerTextEditorCommand('_svg.showSvg', previewSvg);
-    let d4 = vscode.workspace.registerTextDocumentContentProvider('svg-preview', new SvgPreviwerContentProvider());
+    let d3 = vscode.commands.registerTextEditorCommand('_svg.showSvg', ()=>d4.show());
+    let d4 = new SvgPreviwerContentProvider();
     let d5 = vscode.languages.registerDocumentSymbolProvider(SVG_MODE, new SvgSymbolProvider());
     let d6 = vscode.languages.registerHoverProvider(SVG_MODE, new SvgHoverProvider());
     let d7 = vscode.languages.registerRenameProvider(SVG_MODE, new SvgRenameProvider());
@@ -65,7 +61,7 @@ export function activate(context: vscode.ExtensionContext) {
     let d10 = vscode.commands.registerTextEditorCommand('_svg.minifySvg', svgMinify);
     let d11 = vscode.commands.registerTextEditorCommand('_svg.prettySvg', svgPretty);
 
-    context.subscriptions.push(d1, d2, d3, d4, d5, d6, d7, d8, d10, d11);
+    context.subscriptions.push(d1, d2, d3, d4, d5, d6, d7, d8, d9, d10, d11);
 }
 
 // this method is called when your extension is deactivated

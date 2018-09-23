@@ -49,17 +49,11 @@ Open the **Command Palette** (`⇧⌘P` on Mac and `Ctrl+Shift+P` on Win/Linux) 
 
 SVG Version 2.0 is not included.
 
-
-## Donations
-Buy me a cup of coffee.
-
-[Paypal](https://www.paypal.me/jockli)
-
-![Alipay](images/alipay.jpg)
-
-![Wechat](images/wechatpay.jpg)
-
 ## Update History
+
+### 0.1.3
+* Add Zoom to Preview.
+* Add Background Switch to Preview.
 
 ### 0.1.2
 * Add 'xlink:href' attribute.
@@ -111,3 +105,12 @@ Buy me a cup of coffee.
 * [MDN SVG Reference](https://developer.mozilla.org/en-US/docs/Web/SVG)
 
 **Enjoy!**
+
+## Donations
+Buy me a cup of coffee.
+
+[Paypal](https://www.paypal.me/jockli)
+
+![Alipay](images/alipay.jpg)
+
+![Wechat](images/wechatpay.jpg)

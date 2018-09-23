@@ -2,10 +2,10 @@
     "name": "svg",
     "displayName": "SVG",
     "description": "%description%",
-    "version": "0.1.2",
+    "version": "0.1.3",
     "publisher": "jock",
     "engines": {
-        "vscode": "^1.8.0"
+        "vscode": "^1.24.0"
     },
     "icon": "images/svglogo.png",
     "galleryBanner": {
@@ -112,6 +112,24 @@
                         "sortAttrs": true
                     },
                     "description": "%configuration.format.plugins.description%"
+                },
+                "svg.preview.background" :{
+                    "title": "%configuration.preview.background.title%",
+                    "type": "string",
+                    "enum": [
+                        "transparent",
+                        "white",
+                        "black",
+                        "custom"
+                    ],
+                    "default": "transparent",
+                    "description": "%configuration.preview.background.description%"
+                },
+                "svg.preview.backgroundCustom" :{
+                    "title": "%configuration.preview.backgroundCustom.title%",
+                    "type": "string",
+                    "default": "#eee",
+                    "description": "%configuration.preview.backgroundCustom.description%"
                 },
                 "svg.version": {
                     "title": "%configuration.version.title%",
