@@ -3,6 +3,7 @@
 import * as vscode from 'vscode';
 
 import {SVGCompletionItemProvider} from './features/svgCompletionItemProvider';
+import { EmbeddedSVGCompletionItemProvider } from "./features/embeddedSvgCompletionItemProvider";
 import {SvgSymbolProvider} from './features/svgSymbolProvider';
 import {SvgHoverProvider} from './features/svgHoverProvider';
 import {SvgRenameProvider} from './features/svgRenameProvider';
@@ -45,9 +46,10 @@ let previewPanel : vscode.WebviewPanel = null;
 
 
 export function activate(context: vscode.ExtensionContext) {
+    let svgCompletionItemProvider = new SVGCompletionItemProvider();
     let d1 = vscode.languages.registerCompletionItemProvider(
         SVG_MODE,
-        new SVGCompletionItemProvider(),
+        svgCompletionItemProvider,
         "<", " ", "=", "\""
     )
     let d2 = vscode.commands.registerTextEditorCommand('_svg.moveCursor', moveCursor);
@@ -61,7 +63,18 @@ export function activate(context: vscode.ExtensionContext) {
     let d10 = vscode.commands.registerTextEditorCommand('_svg.minifySvg', svgMinify);
     let d11 = vscode.commands.registerTextEditorCommand('_svg.prettySvg', svgPretty);
 
-    context.subscriptions.push(d1, d2, d3, d4, d5, d6, d7, d8, d9, d10, d11);
+    // To support any language auto completion what svg Embedded
+    // const langs = [
+    //     'html'
+    // ];
+
+    // let d12 = vscode.languages.registerCompletionItemProvider(
+    //     langs, 
+    //     new EmbeddedSVGCompletionItemProvider(svgCompletionItemProvider),
+    //     "<", " ", "=", "\""
+    //     );
+
+    context.subscriptions.push(d1, d2, d3, d4, d5, d6, d7, d8, d9, d10, d11);//, d12);
 }
 
 // this method is called when your extension is deactivated

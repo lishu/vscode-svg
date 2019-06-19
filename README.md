@@ -51,6 +51,10 @@ SVG Version 2.0 is not included.
 
 ## Update History
 
+### 0.1.5
+* Pretty SVG now set indent use editor tabSize setting.
+* Update all package for Security.
+
 ### 0.1.4
 * FIX Preview Zoom Reset.
 
@@ -110,10 +114,4 @@ SVG Version 2.0 is not included.
 **Enjoy!**
 
 ## Donations
-Buy me a cup of coffee.
-
-[Paypal](https://www.paypal.me/jockli)
-
-![Alipay](images/alipay.jpg)
-
-![Wechat](images/wechatpay.jpg)
+Welcome [Support this project](Donations.md).

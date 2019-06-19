@@ -3,7 +3,13 @@ import svgo = require('svgo');
 
 export function svgPretty(textEditor: TextEditor, edit: TextEditorEdit) {
     let optimizer = new svgo({
-        js2svg: {pretty: true}
+        plugins:[{
+            cleanupIDs: false
+        }],
+        js2svg: {
+            pretty: true,
+            indent: <number>textEditor.options.tabSize
+        }
     });
     let document = textEditor.document;
 
