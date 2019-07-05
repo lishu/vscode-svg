@@ -42,6 +42,7 @@ export class SvgFormattingProvider implements DocumentFormattingEditProvider {
 
     provideDocumentFormattingEdits(document: TextDocument, options: FormattingOptions, token: CancellationToken): ProviderResult<TextEdit[]> {
         let config = workspace.getConfiguration('svg.format.plugins');
+        const {activeTextEditor} = window;
         let plugins = this._plugins
             .map((configName) => {
                 let plugin = {};
@@ -50,7 +51,7 @@ export class SvgFormattingProvider implements DocumentFormattingEditProvider {
             }) as any[];
         let formatter = new svgo({
             plugins: plugins,
-            js2svg: { pretty: true }
+            js2svg: { pretty: true, indent: <number>activeTextEditor.options.tabSize }
         });
 
         return new Promise((resolve, reject) => {
