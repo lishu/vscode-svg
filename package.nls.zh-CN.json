@@ -11,6 +11,8 @@
     "configuration.completion.showDeprecated.description": "指定是否在完成列表中显示已弃用的选项。",
     "configuration.format.plugins.title": "SVGO 插件数组",
     "configuration.format.plugins.description": "每一项对应启用一个 SVGO 插件，其余的被禁用",
+    "configuration.pretty.plugins.title": "SVGO 插件数组",
+    "configuration.pretty.plugins.description": "每一项对应启用一个 SVGO 插件，其余的被禁用",
     "configuration.version.title": "SVG 版本",
     "configuration.version.description": "指定将用于自动完成和验证的 SVG 标准版本。"
 }
