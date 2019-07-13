@@ -11,6 +11,8 @@
     "configuration.completion.disableFormatOnSave.description": "Focus Disable SVGO Format On Save event if editor.formatOnSave is true",
     "configuration.format.plugins.title": "SVGO plugins array.",
     "configuration.format.plugins.description": "Each items corresponds to a plugin that should be enabled, the rest is disabled.",
+    "configuration.pretty.plugins.title": "SVGO plugins array.",
+    "configuration.pretty.plugins.description": "Each items corresponds to a plugin that should be enabled, the rest is disabled.",
     "configuration.version.title": "SVG Version",
     "configuration.version.description": "Specifies the SVG standard version that will be used for autocompletion and validation.",
     "configuration.preview.background.title": "Svg Preview Background",
