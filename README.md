@@ -1,6 +1,6 @@
 # svg
 
-A Powerful SVG Language Support Extension(beta).
+A Powerful SVG Language Support Extension.
 Almost all the features you need to handle SVG.
 
 ## Features
@@ -42,14 +42,21 @@ Open the **Command Palette** (`⇧⌘P` on Mac and `Ctrl+Shift+P` on Win/Linux) 
 
 ## Contributors
 
-* [LaurentTreguier](https://github.com/LaurentTreguier) for sharing SVG formatting features
-* [Ansimorph](https://github.com/Ansimorph) for sharing Minify SVG features
+* [Laurent Tréguier](https://github.com/LaurentTreguier) for sharing SVG formatting features
+* [Björn Ganslandt](https://github.com/Ansimorph) for sharing Minify SVG features
+* [Amelia Bellamy-Royds](https://github.com/AmeliaBR) for Add the xmlns and xmlns:xlink attributes
+* [Evan Demaris](https://github.com/evandemaris)
+* [Trevor Burnham](https://github.com/TrevorBurnham)
+* [Philipp Kief](https://github.com/PKief)
 
 ## Known Issues
 
 SVG Version 2.0 is not included.
 
 ## Update History
+
+### 0.1.6
+* A small amount of BUG fixes.
 
 ### 0.1.5
 * Pretty SVG now set indent use editor tabSize setting.
